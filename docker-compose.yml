@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  jupyter:
+    build:
+      context: .
+      dockerfile: ./docker_jupyter/Dockerfile
+    ports:
+      - "5555:5555" #jupyter
+    volumes:
+      - ./notebooks:/notebooks
+    restart: unless-stopped
+    command: sh /jupyter_run.sh
+
+  mongodb:
+    image: mongo:4.0.4
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    ports:
+      - "27017:27017"
+    expose:
+      - "27017"
+    volumes:
+      - mongo_data:/var/lib/mongodb/data/
+    restart: unless-stopped
+
+volumes:
+  mongo_data: {}
