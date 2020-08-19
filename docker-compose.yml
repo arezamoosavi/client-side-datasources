@@ -17,13 +17,30 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=pass
-    ports:
-      - "27017:27017"
+    # ports:
+    #   - "27017:27017"
     expose:
       - "27017"
     volumes:
       - mongo_data:/var/lib/mongodb/data/
     restart: unless-stopped
 
+  mysql:
+    image: mysql:8.0
+    # ports:
+    #   - "3306:3306"
+    expose:
+      - "3306"
+      - "33060"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "mysqldb"
+      MYSQL_USER: "sqluser"
+      MYSQL_PASSWORD: "sqlpass"
+    restart: unless-stopped
+
 volumes:
   mongo_data: {}
+  mysql_data: {}
