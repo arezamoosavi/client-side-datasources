@@ -40,6 +40,13 @@ services:
       MYSQL_USER: "sqluser"
       MYSQL_PASSWORD: "sqlpass"
     restart: unless-stopped
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    environment:
+      - SA_PASSWORD=P@ssword
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
 
 volumes:
   mongo_data: {}
